@@ -1,4 +1,4 @@
-package com.saeeds28.RestDemo;
+ package com.saeeds28.RestDemo;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
