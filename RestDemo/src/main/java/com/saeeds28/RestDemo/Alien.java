@@ -11,13 +11,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Alien {
 
+	private int id;
 	private String name;
 	private int skillPoints;
 	
 	public Alien() {}
 	
-	public Alien(String name, int skillPoints) {
+	public Alien(int id, String name, int skillPoints) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.skillPoints = skillPoints;
 	}
@@ -33,5 +35,19 @@ public class Alien {
 	public void setSkillPoints(int skillPoints) {
 		this.skillPoints = skillPoints;
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "Alien [id=" + id + ", name=" + name + ", skillPoints=" + skillPoints + "]";
+	}
+	
 	
 }
