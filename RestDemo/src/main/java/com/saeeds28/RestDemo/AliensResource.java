@@ -4,6 +4,7 @@ import javax.ws.rs.core.MediaType;
 
 import java.util.List;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -32,6 +33,7 @@ public class AliensResource {
 	@POST	// creating our own resource on the server
 	@Path("alien")	// will be called when aliens/alien is visited
 	// Client: use postman to type in the information in xml/json format
+	@Consumes(MediaType.APPLICATION_JSON) // will only accept json requests
 	public Alien createAlien(Alien a) {
 		System.out.println(a);
 		repo.create(a);
