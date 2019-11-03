@@ -2,7 +2,6 @@ package com.saeeds28.RestDemo;
 
 import javax.ws.rs.core.MediaType;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.GET;
@@ -24,7 +23,7 @@ public class AliensResource {
 	
 	@GET	// this method will get called whenever a get request is generated
 	@Path("alien/{id}")	// id is now a placeholder
-	@Produces(MediaType.APPLICATION_XML) // server returns a resource in an xml format
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML}) // server returns a resource in an xml format
 	// PathParam maps the placeholder to the method argument
 	public Alien getAlien(@PathParam("id") int id) {
 		return repo.getAlien(id);
