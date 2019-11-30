@@ -3,6 +3,8 @@ package com.saeeds28.RestDemo;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.saeeds28.RestDemo.Model.Alien;
+
 // mock database class
 public class AlienRepository {
 

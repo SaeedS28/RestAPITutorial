@@ -2,6 +2,8 @@ package com.saeeds28.RestDemo;
 
 import javax.ws.rs.core.MediaType;
 
+import com.saeeds28.RestDemo.Model.Alien;
+
 import java.util.List;
 
 import javax.ws.rs.Consumes;

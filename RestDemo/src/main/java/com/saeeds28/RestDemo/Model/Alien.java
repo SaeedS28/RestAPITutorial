@@ -1,5 +1,12 @@
-package com.saeeds28.RestDemo;
+package com.saeeds28.RestDemo.Model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -9,10 +16,20 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 
 @XmlRootElement
+@Entity(name="Alien")
+@Table(name="Alien")
 public class Alien {
 
+	@Id
+	@SequenceGenerator(name="id_generator", sequenceName = "product_id_seq", allocationSize=1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_generator")
+	@Column(name = "ALIEN_ID", nullable=false)
 	private int id;
+	
+	@Column(name="ALIEN_NAME", nullable = false)
 	private String name;
+	
+	@Column(name="SKILL_POINTS", nullable = false)
 	private int skillPoints;
 	
 	public Alien() {}
