@@ -2,6 +2,7 @@ package com.saeeds28.RestDemo;
 
 import javax.ws.rs.core.MediaType;
 
+import com.saeeds28.RestDemo.DAO.AlienDAO;
 import com.saeeds28.RestDemo.Model.Alien;
 
 import java.util.List;
@@ -15,13 +16,13 @@ import javax.ws.rs.Produces;
 
 @Path("aliens") // will call this class whenever this url is specified
 public class AliensResource {
-	AlienRepository repo = new AlienRepository();
+	AlienDAO repo = new AlienDAO();
 	
 	@GET	// this method will get called whenever a get request is generated
 	@Produces(MediaType.APPLICATION_XML) // server returns a resource in an xml format
 	public List<Alien> getAliens() {
 		System.out.println("getAliens method invoked");
-		return repo.getAliens();
+		return repo.getAllAliens();
 	}
 	
 	@GET	// this method will get called whenever a get request is generated
@@ -36,9 +37,9 @@ public class AliensResource {
 	@Path("alien")	// will be called when aliens/alien is visited
 	// Client: use postman to type in the information in xml/json format
 	@Consumes(MediaType.APPLICATION_JSON) // will only accept json requests
-	public Alien createAlien(Alien a) {
+	public String createAlien(Alien a) {
 		System.out.println(a);
-		repo.create(a);
-		return a;
+		repo.addAlien(a);
+		return "new alien was added";
 	}
 }

@@ -1,10 +1,12 @@
 package com.saeeds28.RestDemo.DAO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 import com.saeeds28.RestDemo.Model.Alien;
 
@@ -25,22 +27,43 @@ public class AlienDAO {
 	}
 	
 	public void addAlien(Alien alien) {
-		
+		em.getTransaction().begin();
+		em.persist(alien);
+		em.getTransaction().commit();
 	}
 	
 	public Alien removeAlien(int alienID) {
-		return null;
+		Alien alien = em.find(Alien.class, alienID);
+		em.getTransaction().begin();
+		em.remove(alien);
+		em.getTransaction().commit();
+		
+		return alien;
 	}
 
 	public boolean updateAlien(Alien alien) {
+		Alien managed = em.find(Alien.class, alien.getId());
+		if(managed != null) {
+			em.getTransaction().begin();
+			managed.setName(alien.getName());
+			managed.setSkillPoints(alien.getSkillPoints());
+			em.getTransaction().commit();
+			return true;
+		}
 		return false;
 	}
 	
 	public Alien getAlien(int alienID) {
-		return null;
+		Alien alien = em.find(Alien.class, alienID);		
+		return alien;
 	}
 	
 	public List<Alien> getAllAliens(){
-		return null;
+		Query query = em.createQuery(
+				   "SELECT a FROM Alien a", Alien.class);
+		
+		@SuppressWarnings("unchecked")
+		ArrayList<Alien> toReturn = (ArrayList<Alien>) query.getResultList();
+		return toReturn;
 	}
 }

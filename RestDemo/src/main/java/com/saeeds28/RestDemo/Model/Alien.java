@@ -34,12 +34,19 @@ public class Alien {
 	
 	public Alien() {}
 	
-	public Alien(int id, String name, int skillPoints) {
+	public Alien(String name, int skillPoints) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.skillPoints = skillPoints;
 	}
+	
+	public Alien(int id, String name, int skillPoints) {
+		super();
+		this.id=id;
+		this.name = name;
+		this.skillPoints = skillPoints;
+	}
+	
 	public String getName() {
 		return name;
 	}
