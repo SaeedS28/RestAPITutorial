@@ -34,10 +34,11 @@ public class AlienDAO {
 	
 	public Alien removeAlien(int alienID) {
 		Alien alien = em.find(Alien.class, alienID);
-		em.getTransaction().begin();
-		em.remove(alien);
-		em.getTransaction().commit();
-		
+		if(alien != null) {
+			em.getTransaction().begin();
+			em.remove(alien);
+			em.getTransaction().commit();
+		}
 		return alien;
 	}
 
@@ -65,5 +66,15 @@ public class AlienDAO {
 		@SuppressWarnings("unchecked")
 		ArrayList<Alien> toReturn = (ArrayList<Alien>) query.getResultList();
 		return toReturn;
+	}
+
+	public List<Alien> removeAllAliens() {
+		List<Alien> removeAll = getAllAliens();
+		em.getTransaction().begin();
+		for(int i = 0; i < removeAll.size(); i++) {
+			em.remove(removeAll.get(i));
+		}
+		em.getTransaction().commit();
+		return removeAll;
 	}
 }

@@ -8,6 +8,7 @@ import com.saeeds28.RestDemo.Model.Alien;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -56,5 +57,19 @@ public class AliensResource {
 		return "No existing object matched the primary key. Nothing updated";
 	}
 	
+	@DELETE
+	@Path("alien/delete/{id}")
+	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	public Alien removeAlien(@PathParam("id") int id) {
+		return repo.removeAlien(id);
+	}
 	
+	@DELETE
+	@Path("alien/delete")
+	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	public List<Alien> removeAllAliens(@PathParam("id") int id) {
+		return repo.removeAllAliens();
+	}
 }
