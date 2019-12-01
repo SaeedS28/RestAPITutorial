@@ -10,6 +10,7 @@ import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -19,7 +20,7 @@ public class AliensResource {
 	AlienDAO repo = new AlienDAO();
 	
 	@GET	// this method will get called whenever a get request is generated
-	@Produces(MediaType.APPLICATION_XML) // server returns a resource in an xml format
+	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON}) 
 	public List<Alien> getAliens() {
 		System.out.println("getAliens method invoked");
 		return repo.getAllAliens();
@@ -27,7 +28,7 @@ public class AliensResource {
 	
 	@GET	// this method will get called whenever a get request is generated
 	@Path("alien/{id}")	// id is now a placeholder
-	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML}) // server returns a resource in an xml format
+	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	// PathParam maps the placeholder to the method argument
 	public Alien getAlien(@PathParam("id") int id) {
 		return repo.getAlien(id);
@@ -36,10 +37,24 @@ public class AliensResource {
 	@POST	// creating our own resource on the server
 	@Path("alien")	// will be called when aliens/alien is visited
 	// Client: use postman to type in the information in xml/json format
-	@Consumes(MediaType.APPLICATION_JSON) // will only accept json requests
-	public String createAlien(Alien a) {
+	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	public Alien createAlien(Alien a) {
 		System.out.println(a);
 		repo.addAlien(a);
-		return "new alien was added";
+		return a;
 	}
+	
+	@PUT
+	@Path("alien")
+	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	public String updateAlien(Alien a) {
+		boolean updated = repo.updateAlien(a);
+		if(updated==true) {
+			return "Alien updated successfully";
+		}
+		return "No existing object matched the primary key. Nothing updated";
+	}
+	
+	
 }
